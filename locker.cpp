@@ -61,30 +61,41 @@ class KjdrmiAction : public LockerAction{
 		}
 };
 
-class LockerExecutorAlwaysThrows{
+class LockerExecutor{
 	public:
-		LockerExecutorAlwaysThrows(LockerAction& action, vector<int>& errors)
+		LockerExecutor(LockerAction& action, vector<int>& errors)
 		: _action(action),_errors(errors)
 		{
 			_action.lock();
 		}
-		virtual ~LockerExecutorAlwaysThrows()
-		{
-			cout<<"LockerExecutorAlwaysThrows THROWS"<<endl;
-			//_action.unlock();
-			throw 20;
-		}
+	
+	protected:
 		LockerAction& _action;
 		vector<int>& _errors;
 };
 
+class LockerExecutorAlwaysThrows : public LockerExecutor{
+	public:
+		LockerExecutorAlwaysThrows(LockerAction& action, vector<int>& errors)
+		: LockerExecutor(action,errors)
+		{
+			
+		}
+		virtual ~LockerExecutor() = 0;
+		virtual ~LockerExecutorAlwaysThrows()
+		{
+			cout<<"LockerExecutorAlwaysThrows THROWS"<<endl;
+			_action.unlock();
+		}
+};
+
 /* this class makes any LockerAction object no-throw safety if there is any uncaught exception!*/
-class LockerExecutorSafelyThrows{
+class LockerExecutorSafelyThrows : public LockerExecutor{
 	public:
 		LockerExecutorSafelyThrows(LockerAction& action, vector<int>& errors)
-		: _action(action),_errors(errors)
+		: LockerExecutor(action,errors)
 		{
-			_action.lock();
+
 		}
 		virtual ~LockerExecutorSafelyThrows()
 		{
@@ -113,16 +124,13 @@ class LockerExecutorSafelyThrows{
 				_action.unlock();
 			}
 		}
-		LockerAction& _action;
-		vector<int>& _errors;
 };
 
-class LockerExecutorNoThrows{
+class LockerExecutorNoThrows : public LockerExecutor{
 	public:
 		LockerExecutorNoThrows(LockerAction& action, vector<int>& errors)
-		: _action(action), _errors(errors)
+		: LockerExecutor(action,errors)
 		{
-			_action.lock();
 		}
 		virtual ~LockerExecutorNoThrows()
 		{
@@ -142,8 +150,6 @@ class LockerExecutorNoThrows{
 				_errors.push_back(v);
 			}			
 		}
-		LockerAction& _action;
-		vector<int>& _errors;
 };
 
 
