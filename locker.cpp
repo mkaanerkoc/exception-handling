@@ -161,19 +161,21 @@ int main(void)
 	KjdrmiAction kact;
 	try
 	{
-		//LockerExecutorSafelyThrows exc(act,errors);
-		//LockerExecutorNoThrows exct(kact,errors);
+		LockerExecutorSafelyThrows exc(act,errors);
+		LockerExecutorSafelyThrows exct(kact,errors);
 		//throw 100;
-		LockerExecutorAlwaysThrows(act,errors);	
+		//LockerExecutorAlwaysThrows(act,errors);	
 	}
 	catch(int v)
 	{
 		cout<<"Main Exception Caught ! ID : "<<v<<endl;
 	}
-	/*for( auto k : errors )
+	vector<int>::iterator ptr; 
+	for (ptr = errors.begin(); ptr < errors.end(); ptr++)
 	{
-		cout<<"Errors ! "<<k<<endl;
-	}*/
+		cout << *ptr << endl;
+	} 
+         
 		
 	return 0;
 }
