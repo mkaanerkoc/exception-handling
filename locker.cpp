@@ -68,7 +68,6 @@ class LockerExecutor{
 		{
 			_action.lock();
 		}
-	
 	protected:
 		LockerAction& _action;
 		vector<int>& _errors;
@@ -81,7 +80,6 @@ class LockerExecutorAlwaysThrows : public LockerExecutor{
 		{
 			
 		}
-		virtual ~LockerExecutor() = 0;
 		virtual ~LockerExecutorAlwaysThrows()
 		{
 			cout<<"LockerExecutorAlwaysThrows THROWS"<<endl;
@@ -169,6 +167,7 @@ int main(void)
 	{
 		LockerExecutorSafelyThrows exc(act,errors);
 		LockerExecutorSafelyThrows exct(kact,errors);
+		LockerExecutorAlwaysThrows(act,errors);	
 		//throw 100;
 		//LockerExecutorAlwaysThrows(act,errors);	
 	}
