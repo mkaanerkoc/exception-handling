@@ -6,11 +6,27 @@ using namespace std;
 // develop ISummable interface to provide run-time generyc type methods/class, bu cok munkun olmayabilir
 // + isleminin sonucu ne olacak amk ??
 
+
+// bu methodda da return value yu generic yapamadik
+// bunlar sadece return type i belli olanlar da oluyo herhalde
+// Kural da bu zaten, generic programming de return turu ile input turu ayni olarak kabul edilir
+// aksinin olabilecegi durumlar belirtilmelidir. bizim plus_op_generyc de yaptigimiz gibi
+
+// python da bu durum su sekilde yapilmis
+/*
+	def __add__(self, o): 
+        return self.a + o.a  
+
+	return degeri de typesiz amk
+*/
+
+#define SUM(a,b)         (a+b)
+
+
 class ISummable{
 	public:
 	private:
 };
-
 
 
 static int plus_op(int a,int b)
@@ -59,6 +75,8 @@ int main(void)
 	cout<<a<<"+"<<b<<"="<<plus_op(a,b)<<endl;
 	cout<<a<<"+"<<b<<"="<<plus_op_generyc<int,int>(a,b)<<endl;
 	cout<<"s1+s2="<<plus_op_generyc<Score,int>(s1,s2)<<endl;
+	cout<<"SUM(a,b):"<<SUM(a,b)<<endl;	
+	cout<<"SUM(s1,s2):"<<SUM(s1,s2)<<endl;	
 	Calculator<int,int> c1;
 	Calculator<Score,int> c2;
 	c1.Plus(a,b);
