@@ -5,7 +5,9 @@
 using namespace std;
 
 
-/* bulgular, c++11 ile derlenince try blogu bittikten sonra calistirilan scope temizlemede firlatilan exception larin caller daki catch de yakalanmiyorlar. terminate oluyor. ama c++11 oncesi nde sorun olmuyor callerdaki catch tarafindan yakalaniyolar */
+/* bulgular, c++11 ile derlenince try blogu bittikten sonra calistirilan scope temizlemede 
+firlatilan exception larin caller daki catch de yakalanmiyorlar. terminate oluyor. 
+ama c++11 oncesi nde sorun olmuyor callerdaki catch tarafindan yakalaniyolar */
 
 class LockerAction{
 	public:
